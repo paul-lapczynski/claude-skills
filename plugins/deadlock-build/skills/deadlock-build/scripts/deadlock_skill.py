@@ -531,7 +531,7 @@ def render_one(plan_path, R, acct_arg):
     L += ["", "**Model estimate** (relative: the hero's real numbers times this build's stats, including damage over time. It ignores summons, procs and conditions, so compare builds with it; it is not in-game damage)", ""]
     L += model_lines(ev, path)
     L.append("")
-    L.append("Modelled: " + "; ".join((f"{r['name']} {r['cast']:.0f} dmg every {r['cd']:.1f}s ({r['note']})" if r["cd"] else f"{r['name']} {r['note']}") for r in ev["abilities"] if r["modelled"]))
+    L.append("Modelled: " + "; ".join((f"{r['name']} {r['cast']:.0f} dmg every {r['cd']:.1f}s ({r['note']})" if r["cd"] and r["cast"] else f"{r['name']} {r['note']}") for r in ev["abilities"] if r["modelled"]))
     text = "\n".join(L)
 
     # ---- export
@@ -662,7 +662,7 @@ def kit_eval(hero, kit, winfo, tot, tiers):
     rows = []
     for ab in kit:
         cd = num(ab["properties"].get("AbilityCooldown", {}).get("value", 0))
-        dmg, dots, durs = [], [], {}
+        dmg, dots, durs, pbs = [], [], {}, []
         for k, v in ab["properties"].items():
             if not isinstance(v, dict) or num(v.get("value")) <= 0:
                 continue
@@ -671,7 +671,7 @@ def kit_eval(hero, kit, winfo, tot, tiers):
             if tech and re.search(r"^DPS$|PerSecond|DamagePerSec", k, re.I):
                 dots.append([k, num(v["value"]), num(sf.get("stat_scale", 0))])
             elif tech and re.search(r"damage", k, re.I) and "Percent" not in k:
-                dmg.append([k, num(v["value"]), num(sf.get("stat_scale", 0))])
+                (pbs if re.search(r"PerBullet|PerShot", k, re.I) else dmg).append([k, num(v["value"]), num(sf.get("stat_scale", 0))])
             elif re.search(r"Duration", k) and not skip_dur.search(k):
                 durs[k] = num(v["value"])
         for u in (ab.get("upgrades") or [])[:tiers.get(ab["id"], 0)]:
@@ -680,20 +680,25 @@ def kit_eval(hero, kit, winfo, tot, tiers):
                 if nm == "AbilityCooldown":
                     cd += b
                 elif pu.get("scale_stat_filter") or pu.get("upgrade_type") == "EAddToScale":
-                    tgt = dmg or dots
+                    tgt = dmg or dots or pbs
                     if tgt:
                         tgt[0][2] += b
                 elif nm in durs:
                     durs[nm] += b
                 else:
-                    for d in dmg + dots:
+                    for d in dmg + dots + pbs:
                         if d[0] == nm:
                             d[1] += b
+        pb_bonus = sum(b + c * sp for _, b, c in pbs)             # extra spirit damage on every bullet while the ability is active
         direct = sum(b + c * sp for _, b, c in dmg)
         dur = max(durs.values()) if durs else 0
         dot_rate = sum(b + c * sp for _, b, c in dots)
         eff_cd = cd * (1 - cdr) if cd > 0 else 0
-        if eff_cd and (direct or (dot_rate and dur)):
+        if pb_bonus and eff_cd and dur:
+            active = min(1.0, dur / eff_cd)
+            rows.append({"name": ab["name"], "cast": 0, "cd": eff_cd, "dps": pb_bonus * bps_e * up * active, "modelled": True,
+                         "note": f"+{pb_bonus:.0f} spirit damage on every bullet for {dur:g}s, up {active * 100:.0f}% of the time"})
+        elif eff_cd and (direct or (dot_rate and dur)):
             cast = direct + dot_rate * dur
             rows.append({"name": ab["name"], "cast": cast, "cd": eff_cd, "dps": cast / eff_cd, "modelled": True,
                          "note": f"{direct:.0f} direct + {dot_rate:.0f}/s x {dur:g}s" if dot_rate else "direct"})
