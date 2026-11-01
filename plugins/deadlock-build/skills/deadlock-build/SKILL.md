@@ -71,6 +71,11 @@ long SteamID64, converts it, and saves it for next time. Never put the id in fil
      the best build; if it must stand in the fight with no escape, buy health, resists, barriers or lifesteal. State
      your survivability judgement for every plan and say why. The renderer's model shows health, effective health,
      lifesteal and a damage-times-toughness figure to compare plans; it cannot judge fights.
+   - **Combos.** Read the hero's tags (Initiator, Teamplay, Clutch...) and how its abilities chain (engage, then
+     crowd control, then ultimate). Find the shop items that extend that chain: teleports and dashes (Warp Stone,
+     Majestic Leap, Phantom Strike), silences, pulls, barriers on the way in. An Initiator build without a way to
+     start the fight is incomplete. Dynamo's Warp Stone into Quantum Entanglement into Singularity is the example;
+     ask the user about combos you cannot see in the numbers.
    - Which items multiply those specific numbers (e.g. cooldown reduction on a long-cooldown ultimate, range on a
      ranged line, fire rate for an on-hit effect) versus items that are generic stat sticks.
 4. **Plan purchases around the spikes.** Rules that the renderer enforces:
