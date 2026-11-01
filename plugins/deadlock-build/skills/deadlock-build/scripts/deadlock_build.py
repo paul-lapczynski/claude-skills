@@ -1318,10 +1318,13 @@ def resolve_account_id(arg):
     if not v and os.path.exists(f):
         v = open(f).read().strip()
     if v:
+        n = int(str(v).strip())
+        if n >= 76561197960265728:                  # a SteamID64 (from a profile URL): convert to the 32-bit account id
+            n -= 76561197960265728
         os.makedirs(CACHE, exist_ok=True)
         with open(f, "w") as fh:
-            fh.write(str(v))
-        return int(v)
+            fh.write(str(n))
+        return n
     return None
 
 

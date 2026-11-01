@@ -41,8 +41,24 @@ survivability decision (some heroes are best as glass cannons).
 
 - Python 3 (standard library only). `pip install zstandard` once so import strings are compressed the way the game expects.
 - Internet access to `api.deadlock-api.com` (a community API) for hero, item and patch data.
-- Your own Deadlock account id for import strings: pass `--account-id` once, it is saved in `~/.cache/deadlock-build/`.
-  Copy any build in game and decode it, or use the id from your profile URL.
+- Your own Deadlock account id for import strings (see below).
+
+### Finding your account id
+
+Your Deadlock account id is your Steam account id. Any one of these works:
+
+1. **Steam friend code (easiest):** in Steam, Friends -> Add a Friend -> "Your Friend Code".
+2. **Your profile URL:** if it looks like `steamcommunity.com/profiles/7656119...`, that long number (a SteamID64) works as is.
+   If it has a custom name instead, paste your profile into a lookup site such as steamid.io to get the number.
+
+The skill asks for it the first time you make a build. To set or change it yourself:
+
+```
+python plugins/deadlock-build/skills/deadlock-build/scripts/deadlock_build.py render plan.json --account-id 12345678
+```
+
+The script converts a SteamID64 to the 32-bit id and saves it in `~/.cache/deadlock-build/account_id.txt`, so you only give it once.
+It is not secret, but it is stored in your own import strings and cache, never in this repo.
 
 Static game data is cached per game build in `~/.cache/deadlock-build/`, so repeat runs are fast.
 
@@ -57,6 +73,6 @@ python plugins/deadlock-build/skills/deadlock-build/scripts/deadlock_build.py Gr
 ### Caveats
 
 - Unofficial and not affiliated with Valve. Game data comes from a community API and can lag or change.
-- The model ignores summons, damage over time, procs and fight context. It compares builds; it does not predict damage.
+- The model covers the gun, direct ability damage, damage over time and per-bullet bonuses. It ignores summons, procs, debuffs and fight context. It compares builds; it does not predict damage.
 - No build here is proven stronger than another. Test in game.
 - The import-string format was reverse-engineered from builds copied out of the game and may break with a game update.

@@ -35,6 +35,14 @@ Mark the plans `"experimental": true`. If the user asks for the old categories, 
 instead (Aggressive = fighting power; Farming = economy and sustain early; Support = buff the user and team, and the
 hero's own spikes), each a balanced build.
 
+## Account id (ask once)
+
+Import strings need the user's Deadlock account id, which is their Steam account id. Before rendering, check whether
+`~/.cache/deadlock-build/account_id.txt` exists. If it does not, ask the user for it once, and tell them where to find it:
+Steam -> Friends -> Add a Friend -> "Your Friend Code" (that number is the account id), or the number from their profile
+URL (`steamcommunity.com/profiles/7656119...`). Pass it with `--account-id`; the script accepts the friend code or the
+long SteamID64, converts it, and saves it for next time. Never put the id in files meant to be shared.
+
 ## Workflow
 
 1. **Get the facts** (current patch, nothing scored):
