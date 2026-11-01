@@ -1,0 +1,17 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "paul-lapczynski"
+  },
+  "metadata": {
+    "description": "Claude Code skills and plugins by paul-lapczynski. First plugin: deadlock-build."
+  },
+  "plugins": [
+    {
+      "name": "deadlock-build",
+      "source": "./plugins/deadlock-build",
+      "description": "Plan Deadlock item builds from the current patch's real numbers: power spikes, upgrade chains, 12-slot inventories, imbues, a Perfect build, and in-game import strings.",
+      "version": "0.1.0"
+    }
+  ]
+}

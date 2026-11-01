@@ -1,0 +1,205 @@
+{
+ "hero": "Graves",
+ "path": "Damage",
+ "summary": "Fight power. Graves' real damage is the gun (35 DPS base) plus her summons; Grasping Hands is 90 damage at x1.6 spirit power and the ultimate x1.27, so spirit power matters but is not everything. Essence Theft T2 (steals 45% weapon damage) is the first big fight spike, Hands T2/T3 the next. Items multiply both halves: spirit power and cooldowns for Hands/ult/deadheads, fire rate and weapon damage for the gun, Spellslinger and Recharging Rush to tie them together. Survivability: about 1200 health and 1500 spirit effective health, lifesteal from Spiritual Overflow, no escape; the ghouls and deadheads are the decoys.",
+ "ability_order": [
+  {
+   "ability": "Jar of Dead",
+   "why": "lane sustain; deadheads follow your target"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T1: heal on pickup"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "immobilize wall: the kill setup"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T1: wall lasts 7s"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "unlock at 1400 souls"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T1: 1 point toward T2"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "ultimate unlock at 3200 (no ability points)"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T2: weapon damage stolen 25 -> 45%, the first big fight spike"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T1: cooldown 140 -> 125s"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T2: damage 90 -> 180, wall 14 -> 24m"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T3 (5 points): cooldown 34 -> 20s, 2 ghouls, longer immobilize"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T3 (5 points): +1 target, summons also apply Essence Theft"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T2: slow on hit"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T2: duration +10s"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T3 (5 points): +2 deadheads"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T3 (5 points)"
+  }
+ ],
+ "spikes": [
+  {
+   "souls": 1400,
+   "text": "Essence Theft online."
+  },
+  {
+   "souls": 3200,
+   "text": "Ultimate unlocks."
+  },
+  {
+   "souls": 3900,
+   "text": "Essence Theft T2: 45% weapon damage stolen from the target - first big fight spike."
+  },
+  {
+   "souls": 6000,
+   "text": "Grasping Hands T2: damage doubles; Improved Spirit and Enchanter's Emblem are already in."
+  },
+  {
+   "souls": 9600,
+   "text": "Rapid Recharge: +2 Jar of Dead charges and spirit power on charged abilities."
+  },
+  {
+   "souls": 10100,
+   "text": "Grasping Hands T3: 20s cooldown and 2 ghouls; the imbued Ballistic Enchantment buff is up far more often."
+  }
+ ],
+ "steps": [
+  {
+   "item": "Extra Spirit",
+   "note": "lane: spirit power; becomes Improved Spirit then Boundless Spirit"
+  },
+  {
+   "item": "Extra Charge",
+   "note": "lane: extra Jar of Dead charge; becomes Rapid Recharge"
+  },
+  {
+   "item": "Rapid Rounds",
+   "note": "lane: fire rate; becomes Swift Striker"
+  },
+  {
+   "item": "Enchanter's Emblem",
+   "note": "spirit power, cooldown and spirit resist while healthy"
+  },
+  {
+   "item": "Improved Spirit",
+   "note": "upgrade: +22 spirit power before Hands T2"
+  },
+  {
+   "item": "Swift Striker",
+   "note": "upgrade: more fire rate so Essence Theft ramps faster"
+  },
+  {
+   "item": "Spirit Lifesteal",
+   "note": "stepping stone: sustain now, becomes Spiritual Overflow"
+  },
+  {
+   "item": "Rapid Recharge",
+   "note": "upgrade: +2 charges for Jar of Dead"
+  },
+  {
+   "item": "Mystic Expansion",
+   "imbue": "Grasping Hands",
+   "note": "stepping stone: range on the wall; becomes Ballistic Enchantment"
+  },
+  {
+   "item": "Ballistic Enchantment",
+   "imbue": "Grasping Hands",
+   "note": "upgrade: Hands hits grant weapon damage per unique hero hit"
+  },
+  {
+   "item": "Recharging Rush",
+   "note": "weapon damage refills Jar of Dead's charges"
+  },
+  {
+   "item": "Hollow Point",
+   "note": "weapon damage and bullet-resist shred while healthy"
+  },
+  {
+   "item": "Spiritual Overflow",
+   "note": "upgrade: fire rate, spirit power and lifesteal while shooting heroes"
+  },
+  {
+   "item": "Mystic Vulnerability",
+   "note": "stepping stone: spirit resist shred; becomes Escalating Exposure"
+  },
+  {
+   "item": "Escalating Exposure",
+   "note": "upgrade: stacking spirit amp on Hands, deadheads and the ultimate"
+  },
+  {
+   "item": "Boundless Spirit",
+   "note": "upgrade: finishes the Extra Spirit line"
+  },
+  {
+   "item": "Counterspell",
+   "note": "spirit power 20, health and a spell parry"
+  },
+  {
+   "item": "Toxic Bullets",
+   "note": "bleed and healing reduction (situational: see swaps)"
+  },
+  {
+   "item": "Spellslinger",
+   "note": "casting abilities stacks fire rate and reload: bridges gun and abilities"
+  }
+ ],
+ "swaps": [
+  {
+   "sell": "Toxic Bullets",
+   "buy": "Cheat Death",
+   "note": "if the enemy has no healing and bursts you down"
+  }
+ ],
+ "experimental": true,
+ "openings": [
+  {
+   "name": "Fight lane",
+   "items": [
+    "Rapid Rounds",
+    "Extra Spirit",
+    "Extra Charge"
+   ],
+   "why": "fire rate so Essence Theft ramps fast, spirit power for Grasping Hands, an extra Jar of Dead charge; all three upgrade into end-game items"
+  },
+  {
+   "name": "Farm lane",
+   "items": [
+    "Monster Rounds",
+    "Mystic Regeneration",
+    "Extra Charge"
+   ],
+   "why": "bonus damage vs NPCs and regeneration to farm and stay in lane; Monster Rounds becomes Cultist Sacrifice only if you want the economy item, otherwise sell it at 9 slots"
+  }
+ ]
+}

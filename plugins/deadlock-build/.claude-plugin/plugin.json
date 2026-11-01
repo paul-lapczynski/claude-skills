@@ -1,0 +1,6 @@
+{
+  "name": "deadlock-build",
+  "description": "Plan Deadlock item builds from the current patch's real numbers: power spikes, upgrade chains, 12-slot inventories, imbues, a Perfect build, and in-game import strings.",
+  "version": "0.1.0",
+  "author": { "name": "paul-lapczynski" }
+}

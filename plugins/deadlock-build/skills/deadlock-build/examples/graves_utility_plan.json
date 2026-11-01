@@ -1,0 +1,204 @@
+{
+ "hero": "Graves",
+ "path": "Utility",
+ "summary": "Team and spike support. Graves brings crowd control and debuffs rather than raw ability damage: Grasping Hands immobilizes (1.75s at T3, 20s cooldown), Essence Theft steals 45% of the target's weapon damage and spirit resist (so it works for the whole team), Jar of Dead slows. Items extend that: healing and barriers for allies, spirit resist shred and spirit amp on targets, Heroic Aura for the team's fire rate, and cooldowns so the control is up more often. Survivability: barriers (Guardian Ward into Divine Barrier), Counterspell and Spirit Resilience; the build gives up damage to stay alive and keep allies alive.",
+ "ability_order": [
+  {
+   "ability": "Grasping Hands",
+   "why": "immobilize first: the team's setup tool"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T1: wall lasts 7s"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "sustain and deadheads"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T1: heal on pickup"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "unlock at 1400: debuffs the target's damage for the whole team"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T1"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "ultimate unlock at 3200"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T2: 45% weapon damage stolen - the target barely hurts your team"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T2: bigger 24m wall that blocks a fight lane"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T1: cooldown 140 -> 125s"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T3 (5 points): 1.75s immobilize, 20s cooldown, 2 ghouls"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T2: slow on hit"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T3 (5 points): summons also apply it"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T2: duration +10s"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T3 (5 points)"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T3 (5 points)"
+  }
+ ],
+ "spikes": [
+  {
+   "souls": 1400,
+   "text": "Essence Theft online: a debuff that helps the whole team."
+  },
+  {
+   "souls": 3900,
+   "text": "Essence Theft T2: the target loses 45% of its weapon damage."
+  },
+  {
+   "souls": 5300,
+   "text": "Grasping Hands T2: a 24m wall that splits fights."
+  },
+  {
+   "souls": 10100,
+   "text": "Grasping Hands T3: 1.75s immobilize on a 20s cooldown."
+  }
+ ],
+ "steps": [
+  {
+   "item": "Healing Rite",
+   "note": "lane: heal and sprint on yourself or an ally; becomes Healing Nova"
+  },
+  {
+   "item": "Grit",
+   "note": "lane: barrier; becomes Guardian Ward then Divine Barrier"
+  },
+  {
+   "item": "Extra Charge",
+   "note": "lane: extra Jar of Dead charge; becomes Rapid Recharge"
+  },
+  {
+   "item": "Enchanter's Emblem",
+   "note": "spirit power, cooldown and spirit resist while healthy"
+  },
+  {
+   "item": "Guardian Ward",
+   "note": "upgrade: barrier on an ally with half the cooldown"
+  },
+  {
+   "item": "Spirit Shredder",
+   "note": "stepping stone: shreds spirit resist and gives allies lifesteal; becomes Spirit Rend"
+  },
+  {
+   "item": "Healing Nova",
+   "note": "upgrade: heal yourself and nearby allies"
+  },
+  {
+   "item": "Spirit Rend",
+   "note": "upgrade: bigger resist shred plus lifesteal for allies"
+  },
+  {
+   "item": "Rapid Recharge",
+   "note": "upgrade: +2 charges for Jar of Dead"
+  },
+  {
+   "item": "Compress Cooldown",
+   "imbue": "Grasping Hands",
+   "note": "stepping stone: more uptime on the immobilize; becomes Superior then Transcendent Cooldown"
+  },
+  {
+   "item": "Superior Cooldown",
+   "note": "upgrade: more cooldown reduction"
+  },
+  {
+   "item": "Heroic Aura",
+   "note": "fire rate and move speed for you and nearby allies, bullet resist for them"
+  },
+  {
+   "item": "Mystic Vulnerability",
+   "note": "stepping stone: spirit resist shred; becomes Escalating Exposure"
+  },
+  {
+   "item": "Counterspell",
+   "note": "spirit power, health, a spell parry"
+  },
+  {
+   "item": "Divine Barrier",
+   "note": "upgrade: removes debuffs from an ally and gives a barrier"
+  },
+  {
+   "item": "Escalating Exposure",
+   "note": "upgrade: stacking spirit amp on your whole team's spirit damage to the target"
+  },
+  {
+   "item": "Slowing Hex",
+   "note": "stepping stone: slow and silence movement items; becomes Vortex Web"
+  },
+  {
+   "item": "Spirit Resilience",
+   "note": "spirit resist when below half health"
+  },
+  {
+   "item": "Transcendent Cooldown",
+   "note": "upgrade: ability and item cooldown reduction"
+  },
+  {
+   "item": "Vortex Web",
+   "note": "upgrade: pull enemies together for your team's area damage"
+  },
+  {
+   "item": "Toxic Bullets",
+   "note": "healing reduction and bleed"
+  }
+ ],
+ "swaps": [
+  {
+   "sell": "Spirit Resilience",
+   "buy": "Scourge",
+   "note": "once rich with full slots: a friendly damage-and-resist aura replaces a stat item"
+  }
+ ],
+ "experimental": true,
+ "openings": [
+  {
+   "name": "Fight lane",
+   "items": [
+    "Grit",
+    "Healing Rite",
+    "Extra Charge"
+   ],
+   "why": "barrier and a heal for you or an ally; both are first steps of Divine Barrier and Healing Nova"
+  },
+  {
+   "name": "Farm lane",
+   "items": [
+    "Monster Rounds",
+    "Healing Rite",
+    "Extra Charge"
+   ],
+   "why": "NPC damage to farm, a heal for the lane; sell Monster Rounds when slots fill"
+  }
+ ]
+}

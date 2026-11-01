@@ -1,0 +1,219 @@
+{
+ "hero": "Graves",
+ "path": "Perfect",
+ "experimental": true,
+ "ideal": true,
+ "summary": "The ideal Graves, ignoring cost. Her damage has four sources, and this build multiplies all of them: the gun (Titanic Magazine, Recharging Rush, Hollow Point, Swift Striker, Spiritual Overflow, Spellslinger), Grasping Hands and the ultimate (cooldown reduction through the whole Compress-Superior-Transcendent chain, spirit power through Boundless Spirit and Overflow), the Jar of Dead summons (Rapid Recharge gives +2 charges, Recharging Rush refills them) and the debuffs (Escalating Exposure on spirit hits, Ballistic Enchantment feeding the gun from Hands hits). Counterspell keeps her alive. Every chain is finished and every imbue is set. It needs a very long game. Survivability: Graves has 730 base health and no escape, but she shoots from long range and her ghouls and deadheads draw the focus, so she can run lean. This build keeps one defensive slot (Counterspell: 150 health and a spell parry) plus health and lifesteal from Boundless Spirit and Spiritual Overflow. If your team peels for you, swap Counterspell for Glass Cannon (60% weapon damage, fire rate per kill): the kit can support a glass cannon, and the swap table shows it.",
+ "ability_order": [
+  {
+   "ability": "Jar of Dead",
+   "why": "lane sustain; deadheads follow your target"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T1: heal on pickup"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "immobilize wall: the setup"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T1: wall lasts 7s"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "unlock at 1400 souls"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T1: 1 point toward T2"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "ultimate unlock at 3200, no ability points"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T2: weapon damage stolen 25 -> 45%: the first big spike"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T2: damage 90 -> 180 and a 24m wall (2 points)"
+  },
+  {
+   "ability": "Grasping Hands",
+   "why": "T3 (5 points): cooldown 34 -> 20s, 2 ghouls, 1.75s immobilize"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T1: cooldown 140 -> 125s"
+  },
+  {
+   "ability": "Essence Theft",
+   "why": "T3 (5 points): summons apply it too"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T2: slow on hit"
+  },
+  {
+   "ability": "Jar of Dead",
+   "why": "T3 (5 points): +2 deadheads"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T2: duration +10s"
+  },
+  {
+   "ability": "Borrowed Decree",
+   "why": "T3 (5 points)"
+  }
+ ],
+ "spikes": [
+  {
+   "souls": 1400,
+   "text": "Essence Theft online."
+  },
+  {
+   "souls": 3200,
+   "text": "Ultimate unlocks."
+  },
+  {
+   "souls": 3900,
+   "text": "Essence Theft T2: 45% of the target's weapon damage stolen."
+  },
+  {
+   "souls": 5300,
+   "text": "Grasping Hands T2: damage doubles; Recharging Rush, Titanic Magazine and Swift Striker are already boosting the gun."
+  },
+  {
+   "souls": 9600,
+   "text": "Rapid Recharge: +2 Jar of Dead charges and spirit power on charged abilities."
+  },
+  {
+   "souls": 10100,
+   "text": "Grasping Hands T3: 20s cooldown; with the Compress/Superior Cooldown imbue it is up about every 14s."
+  }
+ ],
+ "openings": [
+  {
+   "name": "Fight lane",
+   "items": [
+    "Rapid Rounds",
+    "Extended Magazine",
+    "Extra Charge"
+   ],
+   "why": "all three are components of Swift Striker, Titanic Magazine and Rapid Recharge"
+  },
+  {
+   "name": "Farm lane",
+   "items": [
+    "Monster Rounds",
+    "Extended Magazine",
+    "Extra Charge"
+   ],
+   "why": "NPC damage to farm; sell Monster Rounds at 9 slots"
+  }
+ ],
+ "steps": [
+  {
+   "item": "Extra Charge",
+   "note": "lane: becomes Rapid Recharge"
+  },
+  {
+   "item": "Rapid Rounds",
+   "note": "lane: becomes Swift Striker"
+  },
+  {
+   "item": "Extended Magazine",
+   "note": "lane: becomes Titanic Magazine"
+  },
+  {
+   "item": "Recharging Rush",
+   "note": "30% weapon damage, 30% ammo, refills Jar of Dead charges"
+  },
+  {
+   "item": "Titanic Magazine",
+   "note": "upgrade: +18% weapon damage, +70% ammo"
+  },
+  {
+   "item": "Swift Striker",
+   "note": "upgrade: fire rate"
+  },
+  {
+   "item": "Rapid Recharge",
+   "note": "upgrade: +2 Jar of Dead charges, 15% cooldown reduction and 20 spirit power on charged abilities"
+  },
+  {
+   "item": "Extra Spirit",
+   "note": "stepping stone: becomes Improved then Boundless Spirit"
+  },
+  {
+   "item": "Improved Spirit",
+   "note": "upgrade: +22 spirit power for Hands T2"
+  },
+  {
+   "item": "Mystic Expansion",
+   "imbue": "Grasping Hands",
+   "note": "stepping stone: becomes Ballistic Enchantment"
+  },
+  {
+   "item": "Ballistic Enchantment",
+   "imbue": "Grasping Hands",
+   "note": "upgrade: each unique hero hit by Hands grants weapon damage"
+  },
+  {
+   "item": "Hollow Point",
+   "note": "25% weapon damage while healthy, bullet resist shred, 150 health"
+  },
+  {
+   "item": "Spirit Lifesteal",
+   "note": "stepping stone: becomes Spiritual Overflow"
+  },
+  {
+   "item": "Compress Cooldown",
+   "imbue": "Grasping Hands",
+   "note": "stepping stone: the cooldown chain; imbued on the ability with the highest damage per second"
+  },
+  {
+   "item": "Superior Cooldown",
+   "note": "upgrade: more cooldown reduction"
+  },
+  {
+   "item": "Spiritual Overflow",
+   "note": "upgrade: fire rate 20%, spirit power 39, lifesteal while shooting heroes"
+  },
+  {
+   "item": "Transcendent Cooldown",
+   "note": "upgrade: 15% ability and 10% item cooldown reduction"
+  },
+  {
+   "item": "Boundless Spirit",
+   "note": "upgrade: finishes the Extra Spirit line (+25 spirit power, +10%)"
+  },
+  {
+   "item": "Mystic Vulnerability",
+   "note": "stepping stone: becomes Escalating Exposure"
+  },
+  {
+   "item": "Escalating Exposure",
+   "note": "upgrade: stacking spirit amp on Hands, deadheads and the ultimate"
+  },
+  {
+   "item": "Spellslinger",
+   "note": "each cast stacks fire rate and reload: ties the abilities to the gun"
+  },
+  {
+   "item": "Counterspell",
+   "note": "spirit power 20, 150 health, a spell parry: the one defensive slot"
+  }
+ ],
+ "swaps": [
+  {
+   "sell": "Counterspell",
+   "buy": "Glass Cannon",
+   "note": "glass-cannon version: +60% weapon damage and fire rate per kill, lose a stack on death; only if your team protects you"
+  }
+ ]
+}
