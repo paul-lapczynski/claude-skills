@@ -201,9 +201,9 @@ def cmd_facts(argv):
     winfo = weapon_info_of(hero, all_items)
     vt, base = stat_value_table(hero, kit, winfo, {ab["id"]: 3 for ab in kit})
     L += ["", "## Kit math (mechanics, relative - read the caveats)",
-          "Built from this hero's weapon and ability numbers. It ignores summons, damage over time, procs, conditions and fight context, "
-          "and counts conditional item bonuses in full, so it can under-rate summon heroes and over-rate conditional items. "
-          "Use it to see which stats this kit multiplies, not to predict damage.", ""] + vt
+          "Built from this hero's weapon and ability numbers: gun, direct ability damage and damage over time (per-second damage x how long it lasts, "
+          "assuming the target stays in it). It ignores summons, procs and fight context, and counts conditional item bonuses in full, so it can "
+          "under-rate summon heroes and over-rate conditional items. Use it to see which stats this kit multiplies, not to predict damage.", ""] + vt
     b0 = base["gun_dps"] + base["abil_dps"]
     ref = dict(ZERO, sp=100.0)
     rows = []
@@ -528,10 +528,10 @@ def render_one(plan_path, R, acct_arg):
         for sw in swaps:
             L.append(f"| {by_id[sw['sell']]['name']} | {by_id[sw['buy']]['name']} | {by_id[sw['buy']]['cost']} | {sw['note']} |")
     ev = kit_eval(hero, kit, weapon_info_of(hero, all_items), total_stats([by_id[i] for i in owned]), tiers_from_order([ab["id"] for ab, _ in order]))
-    L += ["", "**Model estimate** (relative: the hero's real numbers times this build's stats. It ignores summons, damage over time, procs and conditions, so compare builds with it; it is not in-game damage)", ""]
+    L += ["", "**Model estimate** (relative: the hero's real numbers times this build's stats, including damage over time. It ignores summons, procs and conditions, so compare builds with it; it is not in-game damage)", ""]
     L += model_lines(ev, path)
     L.append("")
-    L.append("Per cast: " + "; ".join(f"{r['name']} {r['cast']:.0f} dmg every {r['cd']:.1f}s" for r in ev["abilities"] if r["modelled"]))
+    L.append("Modelled: " + "; ".join((f"{r['name']} {r['cast']:.0f} dmg every {r['cd']:.1f}s ({r['note']})" if r["cd"] else f"{r['name']} {r['note']}") for r in ev["abilities"] if r["modelled"]))
     text = "\n".join(L)
 
     # ---- export
@@ -647,7 +647,8 @@ def total_stats(items):
 
 
 def kit_eval(hero, kit, winfo, tot, tiers):
-    """tiers: {ability id: upgrade tiers bought (0-3)}. Returns relative damage and toughness numbers."""
+    """tiers: {ability id: upgrade tiers bought (0-3)}. Returns relative damage and toughness numbers.
+    Models gun, direct ability damage, and damage over time (per-second damage x how long it lasts)."""
     sp = tot["sp"] * (1 + tot["sp_pct"] / 100)
     bd, bps, clip, rl = (num(winfo.get(k, 0)) for k in ("bullet_damage", "bullets_per_second", "clip_size", "reload_duration"))
     bps_e = bps * (1 + tot["fr"] / 100)
@@ -657,36 +658,58 @@ def kit_eval(hero, kit, winfo, tot, tiers):
     up = mag / (mag + rl_e) if mag + rl_e else 0
     gun = bd * (1 + tot["wd"] / 100) * bps_e * up
     cdr = min(tot["cdr"], 60) / 100
+    skip_dur = re.compile(r"Stun|Slow|Debuff|Immobil|Silence|Charge|Cast|Channel|Linger|Delay|Search", re.I)
     rows = []
     for ab in kit:
-        dmg, cd = [], num(ab["properties"].get("AbilityCooldown", {}).get("value", 0))
+        cd = num(ab["properties"].get("AbilityCooldown", {}).get("value", 0))
+        dmg, dots, durs = [], [], {}
         for k, v in ab["properties"].items():
-            sf = v.get("scale_function") if isinstance(v, dict) else None
-            if sf and "tech" in str(sf.get("class_name", "")).lower() and re.search(r"damage", k, re.I) and num(v.get("value")) > 0 and "Percent" not in k:
+            if not isinstance(v, dict) or num(v.get("value")) <= 0:
+                continue
+            sf = v.get("scale_function")
+            tech = bool(sf and "tech" in str(sf.get("class_name", "")).lower())
+            if tech and re.search(r"^DPS$|PerSecond|DamagePerSec", k, re.I):
+                dots.append([k, num(v["value"]), num(sf.get("stat_scale", 0))])
+            elif tech and re.search(r"damage", k, re.I) and "Percent" not in k:
                 dmg.append([k, num(v["value"]), num(sf.get("stat_scale", 0))])
-        for t, u in enumerate((ab.get("upgrades") or [])[:tiers.get(ab["id"], 0)]):
+            elif re.search(r"Duration", k) and not skip_dur.search(k):
+                durs[k] = num(v["value"])
+        for u in (ab.get("upgrades") or [])[:tiers.get(ab["id"], 0)]:
             for pu in u.get("property_upgrades", []):
-                b = num(pu["bonus"])
-                if pu["name"] == "AbilityCooldown":
+                b, nm = num(pu["bonus"]), pu["name"]
+                if nm == "AbilityCooldown":
                     cd += b
                 elif pu.get("scale_stat_filter") or pu.get("upgrade_type") == "EAddToScale":
-                    if dmg:
-                        dmg[0][2] += b
+                    tgt = dmg or dots
+                    if tgt:
+                        tgt[0][2] += b
+                elif nm in durs:
+                    durs[nm] += b
                 else:
-                    for d in dmg:
-                        if d[0] == pu["name"]:
+                    for d in dmg + dots:
+                        if d[0] == nm:
                             d[1] += b
-        cast = sum(b + c * sp for _, b, c in dmg)
+        direct = sum(b + c * sp for _, b, c in dmg)
+        dur = max(durs.values()) if durs else 0
+        dot_rate = sum(b + c * sp for _, b, c in dots)
         eff_cd = cd * (1 - cdr) if cd > 0 else 0
-        rows.append({"name": ab["name"], "cast": cast, "cd": eff_cd, "dps": (cast / eff_cd) if eff_cd and cast else 0.0, "modelled": bool(eff_cd and cast)})
+        if eff_cd and (direct or (dot_rate and dur)):
+            cast = direct + dot_rate * dur
+            rows.append({"name": ab["name"], "cast": cast, "cd": eff_cd, "dps": cast / eff_cd, "modelled": True,
+                         "note": f"{direct:.0f} direct + {dot_rate:.0f}/s x {dur:g}s" if dot_rate else "direct"})
+        elif dot_rate and not cd:                       # passive burn: on the target while you keep shooting it
+            cover = min(1.0, up + dur / (mag + rl_e)) if (mag + rl_e) and dur else up       # a burn outlasts a short reload
+            rows.append({"name": ab["name"], "cast": 0, "cd": 0, "dps": dot_rate * cover, "modelled": True,
+                         "note": f"{dot_rate:.0f}/s while shooting (assumes you keep hitting the target)"})
+        else:
+            rows.append({"name": ab["name"], "cast": direct, "cd": eff_cd, "dps": 0.0, "modelled": False, "note": ""})
     hp = num((hero.get("starting_stats") or {}).get("max_health", {}).get("value", 0)) + tot["hp"]
     abil = sum(r["dps"] for r in rows)
     ehp_b, ehp_s = hp / (1 - min(tot["bres"], 90) / 100), hp / (1 - min(tot["sres"], 90) / 100)
     sustain = gun * tot["bls"] / 100 + abil * tot["sls"] / 100            # health per second from lifesteal at full uptime
     return {"sustain": sustain, "power_index": (gun + abil) * (ehp_b + ehp_s) / 2 / 1000,
             "gun_dps": gun, "abil_dps": abil, "abilities": rows, "sp": sp, "hp": hp,
-            "ehp_bullet": hp / (1 - min(tot["bres"], 90) / 100), "ehp_spirit": hp / (1 - min(tot["sres"], 90) / 100),
-            "gun_uptime": up, "tot": tot}
+            "ehp_bullet": ehp_b, "ehp_spirit": ehp_s, "gun_uptime": up, "tot": tot}
 
 
 def tiers_from_order(order_ids):
@@ -721,5 +744,5 @@ def stat_value_table(hero, kit, winfo, tiers):
         L.append(f"- {lab}: +{e['gun_dps'] + e['abil_dps'] - b:.2f} DPS (gun +{e['gun_dps'] - base['gun_dps']:.2f}, abilities +{e['abil_dps'] - base['abil_dps']:.2f})")
     unmod = [r["name"] for r in base["abilities"] if not r["modelled"]]
     if unmod:
-        L.append(f"- NOT modelled (summons, damage over time, passives or no direct damage): {', '.join(unmod)}. These can make spirit power worth more than shown.")
+        L.append(f"- NOT modelled (summons, effects with no damage number, damage that scales some other way): {', '.join(unmod)}. These can make spirit power worth more than shown.")
     return L, base
